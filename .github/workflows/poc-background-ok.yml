@@ -1,0 +1,15 @@
+name: poc-background-ok
+on:
+  workflow_dispatch:
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - id: a
+        run: echo fast-a; sleep 6; echo done-a
+        background: true
+      - id: b
+        run: echo fast-b; sleep 6; echo done-b
+        background: true
+      - wait: [a, b]
+      - run: echo after-parallel
