@@ -1,0 +1,14 @@
+name: 'poc composite'
+description: 'composite action testing parallel steps'
+runs:
+  using: 'composite'
+  steps:
+    - run: echo fast-a; sleep 6; echo done-a
+      shell: bash
+      parallel: a
+    - run: echo fast-b; sleep 6; echo done-b
+      shell: bash
+      parallel: b
+    - run: echo both-waited
+      shell: bash
+      wait-for: [a, b]
